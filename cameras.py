@@ -3,10 +3,6 @@
 # title = "Камеры"
 from __future__ import unicode_literals
 
-import logging
-import paramiko
-import subprocess
-
 from themylog.disorder.script import Disorder
 
 
