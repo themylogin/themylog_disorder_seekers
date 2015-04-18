@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# crontab(minute="*/30")
+# crontab(minute="*/10")
 # title = "Очередь Celery"
 from __future__ import unicode_literals
 
