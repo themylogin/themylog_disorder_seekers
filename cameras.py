@@ -7,7 +7,7 @@ from themylog.disorder.script import Disorder
 
 
 if __name__ == "__main__":
-    syslog = open("/var/log/syslog").read()
+    syslog = open("/var/log/syslog").read().decode("utf-8")
     for thread, title in [(1, "Камера в подъезде"),
                           (2, "Камера в отсечке")]:
         disorder = Disorder(title)
