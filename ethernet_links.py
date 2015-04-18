@@ -23,7 +23,7 @@ def check_gigabit(disorder, ethtool_output):
 if __name__ == "__main__":
     disorder = Disorder("Сервер")
     try:
-        server_output = subprocess.check_output(["sudo", "ethtool", "eth0"])
+        server_output = subprocess.check_output(["sudo", "ethtool", "p2p1"])
     except:
         disorder.exception("Не удалось запустить ethtool")
     else:
