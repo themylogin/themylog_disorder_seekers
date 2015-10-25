@@ -29,9 +29,10 @@ if __name__ == "__main__":
             key.save()
         except ProjectKey.DoesNotExist:
             continue
-        groups = requests.get("http://sentry.thelogin.ru/api/0/projects/%d/groups/?status=unresolved" % project.id,
+        groups = requests.get("http://sentry.thelogin.ru/api/0/projects/%s/%s/groups/?status=unresolved" %
+                              (project.slug, project.organization.slug),
                               auth=HTTPBasicAuth(key.public_key, key.secret_key)).json()
-        if groups:
+        if isinstance(groups, list):
             disorder.fail([maybe_with_title(MaybeDisorder(is_disorder=True,
                                                           disorder=D(datetime=isodate.parse_datetime(group["firstSeen"]),
                                                                      reason=group["title"],
