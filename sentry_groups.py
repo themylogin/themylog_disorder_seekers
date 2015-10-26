@@ -8,6 +8,7 @@ import isodate
 import os
 import requests
 from requests.auth import HTTPBasicAuth
+import sys
 
 from themylog.disorder import MaybeDisorder, Disorder as D, maybe_with_title
 from themylog.disorder.script import Disorder
@@ -20,7 +21,9 @@ if __name__ == "__main__":
     settings.configure(**{k: v for k, v in config.iteritems()
                           if k in ["DATABASES"] or any(k.startswith("%s_" % s)
                                                        for s in ["AUTH", "SENTRY"])})
+    stdout = sys.stdout
     from sentry.models import Project, ProjectKey
+    sys.stdout = stdout
     for project in Project.objects.all():
         disorder = Disorder(project.name)
         try:
