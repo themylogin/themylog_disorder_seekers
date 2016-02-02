@@ -24,7 +24,7 @@ if __name__ == "__main__":
     stdout = sys.stdout
     from sentry.models import Project, ProjectKey
     sys.stdout = stdout
-    for project in Project.objects.all():
+    for project in Project.objects.order_by("team__name", "name"):
         disorder = Disorder(project.name)
         try:
             key = ProjectKey.objects.get(project=project)
