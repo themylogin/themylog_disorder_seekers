@@ -20,7 +20,7 @@ if __name__ == "__main__":
     execfile(config_file, config)
     settings.configure(**{k: v for k, v in config.iteritems()
                           if k in ["DATABASES"] or any(k.startswith("%s_" % s)
-                                                       for s in ["AUTH", "SENTRY"])})
+                                                       for s in ["AUTH", "CACHE", "SENTRY"])})
     stdout = sys.stdout
     from sentry.models import Project, ProjectKey
     sys.stdout = stdout
@@ -33,9 +33,9 @@ if __name__ == "__main__":
         except ProjectKey.DoesNotExist:
             continue
         groups = requests.get("http://sentry.thelogin.ru/api/0/projects/%s/%s/groups/?status=unresolved" %
-                              (project.slug, project.organization.slug),
+                              (project.organization.slug, project.slug),
                               auth=HTTPBasicAuth(key.public_key, key.secret_key)).json()
-        if isinstance(groups, list):
+        if groups:
             disorder.fail([maybe_with_title(MaybeDisorder(is_disorder=True,
                                                           disorder=D(datetime=isodate.parse_datetime(group["firstSeen"]),
                                                                      reason=group["title"],
