@@ -4,10 +4,8 @@
 from __future__ import unicode_literals
 
 import isodate
-import os
 import requests
 from requests.auth import HTTPBasicAuth
-import sys
 
 from themylog.disorder import MaybeDisorder, Disorder as D, maybe_with_title
 from themylog.disorder.script import Disorder
